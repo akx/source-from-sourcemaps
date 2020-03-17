@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.2",
     "mkdirp": "^0.5.1",
     "source-map": "^0.7.3"
   }
