@@ -1,10 +1,8 @@
-source-from-sourcemaps
-======================
+# source-from-sourcemaps
 
 Extract original source from JavaScript sourcemaps.
 
-Usage
------
+## Usage
 
 ```
 yarn
