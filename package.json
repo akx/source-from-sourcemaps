@@ -6,7 +6,7 @@
   },
   "name": "source-from-sourcemaps",
   "description": "Derive source from sourcemaps",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "source-from-sourcemaps.js",
   "devDependencies": {
     "eslint": "^7.10.0",
