@@ -10,17 +10,20 @@ const { SourceMapConsumer } = require("source-map");
 const minimist = require("minimist");
 
 async function processSource(consumer, src) {
-  const fsSrc =
-    "sources-gen/" +
-    src
-      .replace(/webpack:\/\/\//, "")
-      .replace(/~\//, "node_modules/")
-      .replace(/\?.+$/, "");
   const source = consumer.sourceContentFor(src, true);
   if (!source) {
     console.warn("Unable to source:", src);
     return;
   }
+  const sanitizedPath = path
+    .normalize(
+      src
+        .replace(/webpack:\/\/\//, "")
+        .replace(/~\//, "node_modules/")
+        .replace(/\?.+$/, "")
+    )
+    .replace(/^(\.\.\/)+/, "");
+  const fsSrc = path.join("sources-gen", sanitizedPath);
   await mkdirp(path.dirname(fsSrc));
   await writeFileP(fsSrc, source, "UTF-8");
   console.log(`Wrote ${fsSrc}`);
