@@ -1,10 +1,6 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const util = require("util");
-const writeFileP = util.promisify(fs.writeFile);
-const readFileP = util.promisify(fs.readFile);
-const mkdirp = require("mkdirp");
+const fsp = require("fs/promises");
 const path = require("path");
 const { SourceMapConsumer } = require("source-map");
 const minimist = require("minimist");
@@ -20,20 +16,20 @@ async function processSource(consumer, src) {
       src
         .replace(/webpack:\/\/\//, "")
         .replace(/~\//, "node_modules/")
-        .replace(/\?.+$/, "")
+        .replace(/\?.+$/, ""),
     )
     .replace(/^(\.\.\/)+/, "");
   const fsSrc = path.join("sources-gen", sanitizedPath);
-  await mkdirp(path.dirname(fsSrc));
-  await writeFileP(fsSrc, source, "UTF-8");
+  await fsp.mkdir(path.dirname(fsSrc), { recursive: true });
+  await fsp.writeFile(fsSrc, source, "UTF-8");
   console.log(`Wrote ${fsSrc}`);
 }
 
 async function processFile(pth) {
-  const data = await readFileP(pth, "UTF-8");
+  const data = await fsp.readFile(pth, "UTF-8");
   return await SourceMapConsumer.with(data, null, async (consumer) => {
     const processors = consumer.sources.map((src) =>
-      processSource(consumer, src)
+      processSource(consumer, src),
     );
     return await Promise.all(processors);
   });
