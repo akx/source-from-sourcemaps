@@ -5,7 +5,7 @@
   },
   "name": "source-from-sourcemaps",
   "description": "Derive source from sourcemaps",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "source-from-sourcemaps.js",
   "devDependencies": {
     "eslint": "^8.57.1",
@@ -25,6 +25,6 @@
   },
   "homepage": "https://github.com/akx/source-from-sourcemaps#readme",
   "bin": {
-    "source-from-sourcemaps": "./source-from-sourcemaps.js"
+    "source-from-sourcemaps": "source-from-sourcemaps.js"
   }
 }
